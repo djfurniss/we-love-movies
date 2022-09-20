@@ -3,14 +3,13 @@ const asyncErrBoundary = require("../errors/asyncErrBoundary");
 
 //---validation---
 const reviewExists = async (req, res, next) => {
-    const reviewId = req.params.reviewId;
+    const reviewId = parseInt(req.params.reviewId);
     const review = await service.read(reviewId);
     if(review){
         res.locals.review = review
         return next();
     } res.status(404).json({error: "Review cannot be found."})
 };
-
 
 //---controls---
 async function list (req, res, next) {
@@ -33,9 +32,7 @@ async function destroy (req, res, next) {
 };
 
 module.exports = {
-    list: [
-        asyncErrBoundary(list)
-    ],
+    list: asyncErrBoundary(list),
     update: [
         asyncErrBoundary(reviewExists), 
         asyncErrBoundary(update)

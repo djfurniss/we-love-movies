@@ -6,7 +6,7 @@ const methodProhibited = require("../errors/methodProhibited");
 //mounted to "/movies"
 router
     .route("/")
-    .get(controller.list) //lists all movies
+    .get(controller.list)
     .all(methodProhibited)
 
 router
@@ -21,7 +21,7 @@ router
 
 router
     .route("/:movieId/reviews")
-    .get(controller.movieExists, reviewsRouter)
+    .get(controller.movieExists, reviewsRouter) //rerouted to get resources from "/reviews" route
     .all(methodProhibited)
 
-module.exports = router
+module.exports = router;
